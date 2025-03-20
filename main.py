@@ -18,7 +18,7 @@ app = FastAPI(title=config.TITLE, version=config.VERSION, root_path='/api/v1', l
 
 
 @app.get('/', summary='Документация', tags=['Docs'])
-async def home(request: Request):
+async def home(request: Request, response: Response):
     return RedirectResponse('/api/v1/docs/')
 
 
