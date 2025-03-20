@@ -7,4 +7,4 @@ async_session = async_sessionmaker(engine)
 
 
 class Base(AsyncAttrs, DeclarativeBase):
-    pass
+    __abstract__ = True
