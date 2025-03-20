@@ -3,7 +3,6 @@ import uvicorn
 from app.routers import *
 import app.common.schemas as schemas
 from contextlib import asynccontextmanager
-from app.database.database import async_main
 from fastapi import FastAPI, Request, Response
 from starlette.responses import RedirectResponse, JSONResponse
 
@@ -11,7 +10,6 @@ from starlette.responses import RedirectResponse, JSONResponse
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Run at startup
-    await async_main()
     yield
     # Run on shutdown
 
