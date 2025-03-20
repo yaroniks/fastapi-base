@@ -1,6 +1,7 @@
 import config
 import uvicorn
 from app.routers import *
+import app.database.requests as req
 import app.common.schemas as schemas
 from contextlib import asynccontextmanager
 from starlette.responses import RedirectResponse, JSONResponse
