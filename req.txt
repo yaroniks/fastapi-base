@@ -2,8 +2,8 @@ httpx
 pytest
 alembic
 uvicorn
-pydantic
 aiosqlite
 SQLAlchemy
 fastapi[all]
+pydantic[all]
 python-dotenv
