@@ -1,1 +1,1 @@
-from .example import router as r1
+from .example.router import router as r1
