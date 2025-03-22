@@ -2,6 +2,7 @@ httpx
 pytest
 alembic
 uvicorn
+aio-pika
 aiosqlite
 SQLAlchemy
 fastapi[all]
