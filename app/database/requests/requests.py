@@ -1,4 +1,4 @@
-import config
+from config import settings
 from typing import Optional
 from app.database.models import *
 from app.database.database import async_session

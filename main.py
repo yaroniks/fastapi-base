@@ -1,6 +1,6 @@
-import config
 import uvicorn
 from app.routers import *
+from config import settings
 import app.database.requests as req
 import app.common.schemas as schemas
 from contextlib import asynccontextmanager
@@ -15,7 +15,7 @@ async def lifespan(app: FastAPI):
     # Run on shutdown
 
 
-app = FastAPI(title=config.TITLE, version=config.VERSION, root_path='/api/v1', lifespan=lifespan)
+app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path='/api/v1', lifespan=lifespan)
 
 
 @app.get('/', summary='Документация', tags=['Docs'])

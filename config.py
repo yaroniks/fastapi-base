@@ -1,8 +1,11 @@
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-load_dotenv()
 
-TITLE = os.getenv('TITLE')
-VERSION = os.getenv('VERSION')
-SQL_URL = os.getenv('SQL_URL')
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding='utf-8', extra="ignore")
+
+    TITLE: str
+    VERSION: str
+    SQL_URL: str
+
+settings = Settings()
