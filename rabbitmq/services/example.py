@@ -3,9 +3,22 @@ from config import settings
 
 
 class RabbitMQExample:
+    _instance = None
+    _initialized = False
     __queue = 'example'
 
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(RabbitMQExample, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
     def __init__(self):
+        # Так как в ините создаём соединение, мы это должны делать только один раз
+        # Крч похуй, просто скопировал код
+        if self.__class__._initialized:
+            return
+        self.__class__._initialized = True
+
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host=settings.RABITMQ_HOST, port=settings.RABITMQ_PORT)
         )
