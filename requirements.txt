@@ -1,8 +1,9 @@
+pika
 httpx
 pytest
 alembic
+slowapi
 uvicorn
-aio-pika
 aiosqlite
 SQLAlchemy
 fastapi[all]
