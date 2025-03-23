@@ -8,5 +8,8 @@ class Settings(BaseSettings):
     VERSION: str
     SQL_URL: str
 
+    RABITMQ_HOST: str
+    RABITMQ_PORT: int
+
 
 settings = Settings()
