@@ -1,18 +1,16 @@
 from app.routers import *
 from app.limiter import *
 from config import settings
-import app.database.requests as req
-import app.common.schemas as schemas
 from contextlib import asynccontextmanager
 
 import uvicorn
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Request, Response, HTTPException, status
-from starlette.responses import RedirectResponse, JSONResponse, HTMLResponse
+from fastapi import FastAPI, Request, Response
+from starlette.responses import RedirectResponse, HTMLResponse
 
-from rabbitmq.services import RabbitMQExample
+from app.common.rabbitmq.services import RabbitMQExample
 
 
 @asynccontextmanager
@@ -20,7 +18,7 @@ async def lifespan(app: FastAPI):
     # Run at startup
     yield
     # Run on shutdown
-    await RabbitMQExample().close_rabbitmq()
+    RabbitMQExample().close_rabbitmq()
 
 
 app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path='/api/v1', lifespan=lifespan)

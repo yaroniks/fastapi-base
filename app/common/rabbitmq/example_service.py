@@ -23,7 +23,7 @@ class RabbitMQExample:
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue=self._queue)
 
-    async def worker(self) -> None:
+    def worker(self) -> None:
         def callback(ch, method, properties, body):
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -31,8 +31,8 @@ class RabbitMQExample:
             self.channel.basic_consume(queue=self._queue, on_message_callback=callback, auto_ack=True)
             self.channel.start_consuming()
 
-    async def send(self, message) -> None:
+    def send(self, message) -> None:
         self.channel.basic_publish(exchange='', routing_key=self._queue, body=message)
 
-    async def close_rabbitmq(self) -> None:
+    def close_rabbitmq(self) -> None:
         self.connection.close()
