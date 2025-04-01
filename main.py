@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response
 from starlette.responses import RedirectResponse, HTMLResponse
 
-from app.common.rabbitmq.services import RabbitMQExample
+from app.common.rabbitmq import RabbitMQExample
 
 
 @asynccontextmanager
