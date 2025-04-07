@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
     RabbitMQExample().close_rabbitmq()
 
 
-app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path='/api/v1', lifespan=lifespan)
+app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)
 app.add_middleware(CORSMiddleware,
                    allow_origins=['*'],
                    allow_methods=['*'],
@@ -34,7 +34,7 @@ app.state.limiter = limiter
 @app.get('/', summary='Документация', tags=['Docs'], response_class=HTMLResponse)
 @limiter.limit('60/minute')
 async def home(request: Request, response: Response):
-    return RedirectResponse('/api/v1/docs/')
+    return RedirectResponse(f'{settings.ROOT_PATH}/docs/')
 
 
 app.include_router(example_router)

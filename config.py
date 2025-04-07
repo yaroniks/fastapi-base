@@ -6,6 +6,8 @@ class Settings(BaseSettings):
 
     TITLE: str
     VERSION: str
+    ROOT_PATH: str
+
     SQL_URL: str
 
     RABITMQ_HOST: str
