@@ -17,6 +17,12 @@ pip install -r requirements.txt
 alembic upgrade head
 ```
 
+Запуск:
+
+```bash
+python main.py
+```
+
 ---
 
 Структура файлов:
