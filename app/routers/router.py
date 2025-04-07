@@ -1,6 +1,5 @@
-import app.database.requests as req
-import app.common.schemas as schemas
-from fastapi import APIRouter, Request, Response, HTTPException, status
+import app.schemas as schemas
+from fastapi import APIRouter
 
 router = APIRouter(prefix='/example', tags=['Example'])
 

@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response
 from starlette.responses import RedirectResponse, HTMLResponse
 
-from app.common.rabbitmq import RabbitMQExample
+from app.utils.rabbitmq import RabbitMQExample
 
 
 @asynccontextmanager
@@ -37,6 +37,6 @@ async def home(request: Request, response: Response):
     return RedirectResponse('/api/v1/docs/')
 
 
-app.include_router(r1)
+app.include_router(example_router)
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True)

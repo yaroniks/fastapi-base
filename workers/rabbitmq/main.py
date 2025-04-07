@@ -1,4 +1,4 @@
-from app.common.rabbitmq import RabbitMQExample
+from app.utils.rabbitmq import RabbitMQExample
 
 
 def main():
