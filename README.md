@@ -28,41 +28,37 @@ python main.py
 Структура файлов:
 
 ```
-│   .env  # все переменные
+│   .env
 │   alembic.ini
-│   config.py
+│   config.py  # настройки, доступ к .env
 │   docker-compose.yml
 │   Dockerfile
-│   main.py  # основной файл fast api
+│   main.py  # основной файл fastapi
 │   requirements.txt
 │
 ├───app
 │   │   limiter.py  # RateLimit
 │   │
-│   ├───common
-│   │   │   enums.py  # все Enum'ы
-│   │   │
-│   │   ├───rabbitmq  # consumer и producer rabbitmq
-│   │   │
-│   │   └───schemas  # схемы pydantic
-│   │
 │   ├───database  # работа с бд
-│   │   │   database.py  # базовый класс
-│   │   │   models.py  # таблицы
+│   │   │   base.py  # базовый класс
 │   │   │
-│   │   └───requests  # запросы к бд
+│   │   └───models  # модели sqlaclhemy и запросы в бд
 │   │
-│   └───routers  # роутеры
+│   ├───routers  # роутеры
+│   │
+│   ├───schemas  # схемы pydantic
+│   │
+│   └───utils
+│       │   enums.py  # все Enum'ы
 │       │
-│       └───example
-│               router.py
+│       └───rabbitmq  # consumer и producer rabbitmq
 │
 ├───migration   # файлы alembic'a
 │
 ├───tests  # тесты 
 │
 └───workers
-    └───rabbitmq  # запуск consumer'а и producer'а rabbitmq
+    └───rabbitmq  # запуск consumer'а rabbitmq
             Dockerfile
             main.py
             requirements.txt
