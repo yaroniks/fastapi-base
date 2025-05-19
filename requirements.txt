@@ -1,7 +1,6 @@
 pika
 httpx
 pytest
-alembic
 slowapi
 uvicorn
 aiosqlite

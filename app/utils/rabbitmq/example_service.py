@@ -25,6 +25,7 @@ class RabbitMQExample:
 
     def worker(self) -> None:
         def callback(ch, method, properties, body):
+            # ТУТ МЫ ПОЛУЧАЕМ ЗАПРОС И ОБРАБАТЫВАЕМ ЕГО
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
         while True:
@@ -32,6 +33,7 @@ class RabbitMQExample:
             self.channel.start_consuming()
 
     def send(self, message) -> None:
+        # ТУТ МЫ ОТПРАВЛЯЕМ ЗАПРОС
         self.channel.basic_publish(exchange='', routing_key=self._queue, body=message)
 
     def close_rabbitmq(self) -> None:

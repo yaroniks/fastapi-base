@@ -14,7 +14,6 @@ python -m venv .venv
 .venv\scripts\activate  # для windows
 source .venv/bin/activate  # для linux
 pip install -r requirements.txt
-alembic upgrade head
 ```
 
 Запуск:
@@ -63,3 +62,5 @@ python main.py
             main.py
             requirements.txt
 ```
+
+Автор: Yarovich

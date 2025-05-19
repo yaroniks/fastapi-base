@@ -10,12 +10,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Request, Response
 from starlette.responses import RedirectResponse, HTMLResponse
 
+from app.database.base import async_main
 from app.utils.rabbitmq import RabbitMQExample
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Run at startup
+    await async_main()
     yield
     # Run on shutdown
     RabbitMQExample().close_rabbitmq()
