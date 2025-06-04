@@ -1,13 +1,13 @@
 version: "3"
 
 services:
-  rabbitmq:
-    image: rabbitmq:4-management
-    container_name: rabbitmq
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+#  rabbitmq:
+#    image: rabbitmq:4-management
+#    container_name: rabbitmq
+#    restart: always
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
 
 #  mongo:
 #    image: mongo
@@ -18,16 +18,14 @@ services:
 #    ports:
 #      - "27017:27017"
 
+#    rabbitmq_worker:
+#      build: ./workers/rabbitmq
+#      container_name: rabbitmq_worker
+#      restart: always
+
   main:
     build: .
     container_name: fastapi
     restart: always
     ports:
       - "8000:8000"
-
-  rabbitmq_worker:
-    build: ./workers/rabbitmq
-    container_name: rabbitmq_worker
-    restart: always
-    volumes:
-      -

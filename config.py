@@ -13,5 +13,10 @@ class Settings(BaseSettings):
     RABITMQ_HOST: str
     RABITMQ_PORT: int
 
+    MONGODB_HOST: str
+    MONGODB_PORT: int
+    MONGODB_USER: str
+    MONGODB_PASSWORD: str
+
 
 settings = Settings()

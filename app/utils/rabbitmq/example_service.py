@@ -1,3 +1,4 @@
+import json
 import pika
 from config import settings
 
@@ -5,7 +6,7 @@ from config import settings
 class RabbitMQExample:
     _instance = None
     _initialized = False
-    _queue = 'example'
+    _queue = 'example'  # ТУТ НАЗВАНИЕ ОЧЕРЕДИ
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
@@ -24,16 +25,15 @@ class RabbitMQExample:
         self.channel.queue_declare(queue=self._queue)
 
     def worker(self) -> None:
-        def callback(ch, method, properties, body):
-            # ТУТ МЫ ПОЛУЧАЕМ ЗАПРОС И ОБРАБАТЫВАЕМ ЕГО
+        def callback(ch, method, properties, body):  # ТУТ МЫ ПОЛУЧАЕМ ЗАПРОС И ОБРАБАТЫВАЕМ ЕГО
+            body = json.loads(body)
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
         while True:
-            self.channel.basic_consume(queue=self._queue, on_message_callback=callback, auto_ack=True)
+            self.channel.basic_consume(queue=self._queue, on_message_callback=callback)
             self.channel.start_consuming()
 
-    def send(self, message) -> None:
-        # ТУТ МЫ ОТПРАВЛЯЕМ ЗАПРОС
+    def send(self, message) -> None:  # ТУТ МЫ ОТПРАВЛЯЕМ ЗАПРОС
         self.channel.basic_publish(exchange='', routing_key=self._queue, body=message)
 
     def close_rabbitmq(self) -> None:

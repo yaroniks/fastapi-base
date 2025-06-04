@@ -5,9 +5,9 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from slowapi.errors import RateLimitExceeded
+from fastapi import FastAPI, Request, Response
 from slowapi import _rate_limit_exceeded_handler
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Request, Response
 from starlette.responses import RedirectResponse, HTMLResponse
 
 from app.database.base import async_main
@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)
 app.add_middleware(CORSMiddleware,
-                   allow_origins=['*'],
+                   allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
                    allow_methods=['*'],
                    allow_headers=['*'],
                    allow_credentials=True)

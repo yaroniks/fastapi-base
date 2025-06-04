@@ -1,14 +1,12 @@
 # Базовый шаблон приложения на FastAPI
 
 Установка без докера:
-
 ```bash
 git clone https://github.com/yaroniks/fastapi-base.git
 cd fastapi-base
 ```
 
 Настройте файл `.env` под себя и далее:
-
 ```bash
 python -m venv .venv
 .venv\scripts\activate  # для windows
@@ -17,15 +15,15 @@ pip install -r requirements.txt
 ```
 
 Запуск:
-
 ```bash
+.venv\scripts\activate  # для windows
+source .venv/bin/activate  # для linux
 python main.py
 ```
 
 ---
 
 Структура файлов:
-
 ```
 │   .env
 │   alembic.ini
