@@ -6,7 +6,7 @@ router = APIRouter(prefix='/example', tags=['Example'])
 
 
 @router.get('/', summary='Пример', response_model=schemas.Response,
-            responses={404: {'model': schemas.ErrorMessage}})
+            responses={429: {'model': schemas.ErrorMessage}})
 @limiter.limit('60/minute')
 async def get_example(request: Request):
     return {'success': True, 'message': 'Success.'}
