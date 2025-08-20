@@ -12,7 +12,8 @@ created_at = Annotated[datetime, mapped_column(server_default=func.now())]
 
 
 class Base(AsyncAttrs, DeclarativeBase):
-    pass
+    # __abstract__ = True
+    ...
 
 
 async def async_main():

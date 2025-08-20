@@ -3,9 +3,9 @@ from pydantic import BaseModel, Field
 
 
 class Response(BaseModel):
-    success: bool
-    message: str
+    success: bool = Field(description='Удалось при произвести действие')
+    message: str = Field(description='Подробное сообщение о действии')
 
 
 class ErrorMessage(BaseModel):
-    detail: str
+    detail: str = Field(description='Детали ошибки')
