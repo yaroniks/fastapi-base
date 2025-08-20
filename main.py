@@ -1,5 +1,5 @@
+from app import limiter
 from app.routers import *
-from app.limiter import *
 from config import settings
 import app.schemas as schemas
 from contextlib import asynccontextmanager
