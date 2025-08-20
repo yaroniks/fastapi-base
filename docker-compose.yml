@@ -1,17 +1,17 @@
 version: "3"
 
 services:
-#  postgresql:
-#    image: postgres
-#    container_name: postgresql
-#    restart: always
-#    environment:
-#      POSTGRES_USER: root
-#      POSTGRES_PASSWORD: root
-#      POSTGRES_DB: Database
-#      PGDATA: ~/postgres_data
-#    ports:
-#      - "5432:5432"
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: Database
+      PGDATA: ~/postgres_data
+    ports:
+      - "5432:5432"
 
 #  rabbitmq:
 #    image: rabbitmq:4-management
