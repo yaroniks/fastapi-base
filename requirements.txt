@@ -13,3 +13,4 @@ websockets
 fastapi[all]
 pydantic[all]
 python-dotenv
+python-multipart
