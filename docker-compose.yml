@@ -1,4 +1,5 @@
 version: "3"
+name: "FastApi"
 
 services:
   postgresql:
@@ -12,14 +13,18 @@ services:
       PGDATA: ~/postgres_data
     ports:
       - "5432:5432"
+    networks:
+      - app-network
 
-#  rabbitmq:
-#    image: rabbitmq:4-management
-#    container_name: rabbitmq
-#    restart: always
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app-network
 
 #  mongodb:
 #    image: mongo
@@ -29,15 +34,27 @@ services:
 #      MONGO_INITDB_ROOT_PASSWORD: root
 #    ports:
 #      - "27017:27017"
+#    networks:
+#      - app-network
 
-#    rabbitmq_worker:
-#      build: ./workers/rabbitmq
-#      container_name: rabbitmq_worker
-#      restart: always
+  rabbitmq_worker:
+    build: ./workers/rabbitmq
+    working_dir: /app
+    container_name: rabbitmq_worker
+    restart: always
+    networks:
+      - app-network
 
   main:
     build: .
+    working_dir: /app
     container_name: fastapi
     restart: always
     ports:
       - "8000:8000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
