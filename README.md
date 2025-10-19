@@ -1,11 +1,14 @@
 # Базовый шаблон приложения на FastAPI
 
-Установка без докера:
+Запуск через докер, будет открыт на localhost:8000
 ```bash
-git clone https://github.com/yaroniks/fastapi-base.git
-cd fastapi-base
+docker-compose down
+docker-compose up --build -d
 ```
 
+---
+
+Запуск без докера: <br>
 Настройте файл `.env` под себя и далее:
 ```bash
 python -m venv .venv
@@ -14,7 +17,12 @@ source .venv/bin/activate  # для linux
 pip install -r requirements.txt
 ```
 
-Запуск:
+Запуск зависимостей в докере:
+```bash
+docker run -d --name postgresql -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=Database postgres
+```
+
+Запуск самого приложения:
 ```bash
 .venv\scripts\activate  # для windows
 source .venv/bin/activate  # для linux
@@ -25,13 +33,11 @@ python main.py
 
 Структура файлов:
 ```
-│   .env
-│   alembic.ini
+│   .env  # переменные для работы
 │   config.py  # настройки, доступ к .env
 │   docker-compose.yml
-│   Dockerfile
 │   main.py  # основной файл fastapi
-│   requirements.txt
+│   requirements.txt  # необходимые для работы библеотеки
 │
 ├───app
 │   │   limiter.py  # RateLimit
@@ -56,9 +62,6 @@ python main.py
 │
 └───workers
     └───rabbitmq  # запуск consumer'а rabbitmq
-            Dockerfile
-            main.py
-            requirements.txt
 ```
 
 Автор: Yarovich

@@ -1,5 +1,16 @@
 pika
+motor
+httpx
+pytest
+beanie
+asyncpg
+alembic
+slowapi
+uvicorn
 aiosqlite
 SQLAlchemy
+websockets
+fastapi[all]
 pydantic[all]
 python-dotenv
+python-multipart
