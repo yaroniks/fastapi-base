@@ -1,32 +1,10 @@
 # Базовый шаблон приложения на FastAPI
 
-Запуск через докер, будет открыт на localhost:8000
+Установка и запуск, будет работать на localhost:8000/api/v1
 ```bash
-docker-compose down
-docker-compose up --build -d
-```
-
----
-
-Запуск без докера: <br>
-Настройте файл `.env` под себя и далее:
-```bash
-python -m venv .venv
-.venv\scripts\activate  # для windows
-source .venv/bin/activate  # для linux
-pip install -r requirements.txt
-```
-
-Запуск зависимостей в докере:
-```bash
-docker run -d --name postgresql -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=Database postgres
-```
-
-Запуск самого приложения:
-```bash
-.venv\scripts\activate  # для windows
-source .venv/bin/activate  # для linux
-python main.py
+git clone https://github.com/yaroniks/fastapi-base.git
+cd fastapi-base
+docker compose up --build -d
 ```
 
 ---
