@@ -24,7 +24,7 @@ async def lifespan(app: FastAPI):
     RabbitMQExample().close_rabbitmq()
 
 
-app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)
+app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)  # docs_url=None, redoc_url=None
 app.add_middleware(CORSMiddleware,
                    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
                    allow_methods=['*'],
@@ -43,4 +43,4 @@ async def home(request: Request, response: Response):
 
 app.include_router(example_router)
 if __name__ == '__main__':
-    uvicorn.run('main:app', host='0.0.0.0', reload=True)  # , access_log=False
+    uvicorn.run('main:app', host='0.0.0.0')  # , access_log=False
