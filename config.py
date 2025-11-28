@@ -13,6 +13,8 @@ class Settings(BaseSettings):
 
     RABITMQ_HOST: str
     RABITMQ_PORT: int
+    RABITMQ_USERNAME: str
+    RABITMQ_PASSWORD: str
 
     MONGODB_HOST: str
     MONGODB_PORT: int

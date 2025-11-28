@@ -34,7 +34,7 @@ class RabbitMQExample:
             self.channel.start_consuming()
 
     def send(self, message) -> None:  # ТУТ МЫ ОТПРАВЛЯЕМ ЗАПРОС
-        self.channel.basic_publish(exchange='', routing_key=self._queue, body=message)
+        self.channel.basic_publish(exchange='', routing_key=self._queue, body=message)  # json.dumps(message)
 
     def close_rabbitmq(self) -> None:
         self.connection.close()
