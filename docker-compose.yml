@@ -9,8 +9,6 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: Database
-    ports:
-      - 5432:5432
     networks:
       - app
     healthcheck:
@@ -23,12 +21,11 @@ services:
     image: rabbitmq:4-management
     container_name: rabbitmq
     restart: always
+    env_file:
+      - .env
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    ports:
-      - 5672:5672
-      - 15672:15672
+      RABBITMQ_DEFAULT_USER: ${RABITMQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABITMQ_PASSWORD}
     networks:
       - app
     healthcheck:
@@ -47,6 +44,22 @@ services:
 #      - 27017:27017
 #    networks:
 #      - app
+
+  alembic:
+    build: ./migration
+    restart: on-failure
+    networks:
+      - app
+    volumes:
+      - ./app/:/app/app
+      - ./.env:/app/.env
+      - ./config.py:/app/config.py
+      - ./migration/:/app/migration
+      - ./alembic.ini/:/app/alembic.ini
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    command: alembic upgrade head
 
   rabbitmq_worker:
     build: ./workers/rabbitmq

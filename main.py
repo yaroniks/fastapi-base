@@ -1,15 +1,13 @@
 from app import limiter
 from app.routers import *
 from config import settings
-import app.schemas as schemas
 from contextlib import asynccontextmanager
 
 import uvicorn
+from fastapi import FastAPI
 from slowapi.errors import RateLimitExceeded
-from fastapi import FastAPI, Request, Response
 from slowapi import _rate_limit_exceeded_handler
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.responses import RedirectResponse, HTMLResponse
 
 from app.database.base import async_main
 from app.utils.rabbitmq import RabbitMQExample
@@ -24,7 +22,7 @@ async def lifespan(app: FastAPI):
     RabbitMQExample().close_rabbitmq()
 
 
-app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)  # docs_url=None, redoc_url=None
+app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)  # , docs_url=None, redoc_url=None, openapi_url=None
 app.add_middleware(CORSMiddleware,
                    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
                    allow_methods=['*'],
@@ -32,13 +30,6 @@ app.add_middleware(CORSMiddleware,
                    allow_credentials=True)
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.state.limiter = limiter
-
-
-@app.get('/', summary='Документация', tags=['Docs'], response_class=HTMLResponse,
-         responses={429: {'model': schemas.ErrorMessage}})
-@limiter.limit('60/minute')
-async def home(request: Request, response: Response):
-    return RedirectResponse(f'{settings.ROOT_PATH}/docs/')
 
 
 app.include_router(example_router)

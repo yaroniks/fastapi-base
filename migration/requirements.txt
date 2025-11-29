@@ -1,9 +1,9 @@
 pika
 motor
 beanie
+alembic
 asyncpg
 slowapi
-starlette
 aiosqlite
 SQLAlchemy
 websockets
