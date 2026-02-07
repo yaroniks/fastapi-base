@@ -1,4 +1,5 @@
 from config import settings
+
 from sqlalchemy import func
 from typing import Annotated
 from datetime import datetime

@@ -1,6 +1,7 @@
 import app.schemas as schemas
 from app.limiter import limiter
 from app.database.models import *
+
 from fastapi import APIRouter, Request, UploadFile, Form, File
 
 router = APIRouter(prefix='/example', tags=['Example'])

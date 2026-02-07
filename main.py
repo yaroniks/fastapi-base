@@ -1,16 +1,15 @@
 from app import limiter
 from app.routers import *
 from config import settings
-from contextlib import asynccontextmanager
+from app.database.base import async_main
+from app.utils.rabbitmq import RabbitMQExample
 
 import uvicorn
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
 from fastapi.middleware.cors import CORSMiddleware
-
-from app.database.base import async_main
-from app.utils.rabbitmq import RabbitMQExample
 
 
 @asynccontextmanager

@@ -1,5 +1,6 @@
 from config import settings
 from app.database.base import *
+
 from sqlalchemy import select, update, delete
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import BIGINT, String, Enum, ForeignKey, Boolean
