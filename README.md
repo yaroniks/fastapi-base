@@ -41,5 +41,3 @@ docker compose up --build -d
 └───workers
     └───rabbitmq  # запуск consumer'а rabbitmq
 ```
-
-Автор: Yarovich

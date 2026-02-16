@@ -6,7 +6,9 @@ from datetime import datetime
 from sqlalchemy.orm import DeclarativeBase, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
-engine = create_async_engine(url=settings.SQL_URL)
+engine = create_async_engine(
+    url=f'postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/Database'
+)
 async_session = async_sessionmaker(engine)
 
 created_at = Annotated[datetime, mapped_column(server_default=func.now())]

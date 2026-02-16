@@ -8,7 +8,10 @@ class Settings(BaseSettings):
     VERSION: str
     ROOT_PATH: str
 
-    SQL_URL: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
 
     RABITMQ_HOST: str
     RABITMQ_PORT: int
@@ -19,6 +22,10 @@ class Settings(BaseSettings):
     MONGODB_PORT: int
     MONGODB_USER: str
     MONGODB_PASSWORD: str
+
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_PASSWORD: str
 
 
 settings = Settings()

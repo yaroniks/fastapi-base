@@ -2,9 +2,11 @@ from app import limiter
 from app.routers import *
 from config import settings
 from app.database.base import async_main
+from app.database.redis import redis_service
 from app.utils.rabbitmq import RabbitMQExample
 
 import uvicorn
+import aiohttp
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from slowapi.errors import RateLimitExceeded
@@ -16,8 +18,12 @@ from fastapi.middleware.cors import CORSMiddleware
 async def lifespan(app: FastAPI):
     # Run at startup
     await async_main()
+    app.state.session = aiohttp.ClientSession()
+    await redis_service.connect()
     yield
     # Run on shutdown
+    await app.state.session.close()
+    await redis_service.close()
     RabbitMQExample().close_rabbitmq()
 
 

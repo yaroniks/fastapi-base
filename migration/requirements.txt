@@ -4,6 +4,7 @@ beanie
 alembic
 asyncpg
 slowapi
+starlette
 aiosqlite
 SQLAlchemy
 websockets
