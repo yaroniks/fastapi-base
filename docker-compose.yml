@@ -54,17 +54,6 @@ services:
       timeout: 10s
       retries: 3
 
-#  mongodb:
-#    image: mongo
-#    container_name: mongodb
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: root
-#    ports:
-#      - 27017:27017
-#    networks:
-#      - app
-
   alembic:
     build: ./migration
     restart: on-failure
@@ -105,7 +94,7 @@ services:
       - app
     depends_on:
       postgresql:
-          condition: service_healthy
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
       redis:

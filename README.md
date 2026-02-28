@@ -21,7 +21,7 @@ docker compose up --build -d
 │   │   limiter.py  # RateLimit
 │   │
 │   ├───database  # работа с бд
-│   │   │   base.py  # базовый класс
+│   │   │   redis.py  # кеш redis
 │   │   │
 │   │   └───models  # модели sqlaclhemy и запросы в бд
 │   │
@@ -29,14 +29,14 @@ docker compose up --build -d
 │   │
 │   ├───schemas  # схемы pydantic
 │   │
-│   └───utils
-│       │   enums.py  # все Enum'ы
-│       │
-│       └───rabbitmq  # consumer и producer rabbitmq
+│   └───utils  # различные функции
+│           enums.py
+│           rabbitmq.py  # consumer и producer rabbitmq
+│           utils.py  # общие функции
 │
-├───migration   # файлы alembic'a
+├───migration  # alembic 
 │
-├───tests  # тесты 
+├───tests  # тесты
 │
 └───workers
     └───rabbitmq  # запуск consumer'а rabbitmq

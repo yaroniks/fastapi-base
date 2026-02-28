@@ -1,4 +1,3 @@
-pika
 redis
 motor
 httpx
@@ -9,6 +8,8 @@ alembic
 slowapi
 uvicorn
 aiohttp
+gunicorn
+aio_pika
 aiosqlite
 SQLAlchemy
 websockets
