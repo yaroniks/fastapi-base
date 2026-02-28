@@ -37,22 +37,22 @@ services:
       timeout: 5s
       retries: 3
 
-  rabbitmq:
-    image: rabbitmq:4-management
-    container_name: rabbitmq
-    restart: always
-    env_file:
-      - .env
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABITMQ_USERNAME}
-      RABBITMQ_DEFAULT_PASS: ${RABITMQ_PASSWORD}
-    networks:
-      - app
-    healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "check_port_connectivity" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+#  rabbitmq:
+#    image: rabbitmq:4-management
+#    container_name: rabbitmq
+#    restart: always
+#    env_file:
+#      - .env
+#    environment:
+#      RABBITMQ_DEFAULT_USER: ${RABITMQ_USERNAME}
+#      RABBITMQ_DEFAULT_PASS: ${RABITMQ_PASSWORD}
+#    networks:
+#      - app
+#    healthcheck:
+#      test: [ "CMD", "rabbitmq-diagnostics", "check_port_connectivity" ]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
 
   alembic:
     build: ./migration
@@ -70,19 +70,19 @@ services:
         condition: service_healthy
     command: alembic upgrade head
 
-  rabbitmq_worker:
-    build: ./workers/rabbitmq
-    container_name: rabbitmq_worker
-    restart: always
-    networks:
-      - app
-    volumes:
-      - ./app/:/app/app
-      - ./config.py:/app/config.py
-      - ./.env:/app/.env
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
+#  rabbitmq_worker:
+#    build: ./workers/rabbitmq
+#    container_name: rabbitmq_worker
+#    restart: always
+#    networks:
+#      - app
+#    volumes:
+#      - ./app/:/app/app
+#      - ./config.py:/app/config.py
+#      - ./.env:/app/.env
+#    depends_on:
+#      rabbitmq:
+#        condition: service_healthy
 
   main:
     build: .

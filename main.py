@@ -19,20 +19,19 @@ async def lifespan(app: FastAPI):
     await async_main()
     app.state.session = aiohttp.ClientSession()
     await redis_service.connect()
-    await rabbitmq_service.connect()
+    # await rabbitmq_service.connect()
     yield
     # Run on shutdown
     await app.state.session.close()
     await redis_service.close()
-    await rabbitmq_service.close()
+    # await rabbitmq_service.close()
 
 
-app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)  # , docs_url=None, redoc_url=None, openapi_url=None
+app = FastAPI(title=settings.TITLE, version=settings.VERSION, root_path=settings.ROOT_PATH, lifespan=lifespan)
 app.add_middleware(CORSMiddleware,
                    allow_origins=["*"],
                    allow_methods=['*'],
-                   allow_headers=['*'],
-                   allow_credentials=True)
+                   allow_headers=['*'])
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.state.limiter = limiter
 
