@@ -1,8 +1,8 @@
 from config import settings
 
-from sqlalchemy import func
 from typing import Annotated
 from datetime import datetime
+from sqlalchemy import func, DateTime
 from sqlalchemy.orm import DeclarativeBase, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
@@ -11,7 +11,7 @@ engine = create_async_engine(
 )
 async_session = async_sessionmaker(engine)
 
-created_at = Annotated[datetime, mapped_column(server_default=func.now())]
+created_at = Annotated[datetime, mapped_column(DateTime(timezone=True), server_default=func.now())]
 
 
 class Base(AsyncAttrs, DeclarativeBase):

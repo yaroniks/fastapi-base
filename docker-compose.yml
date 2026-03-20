@@ -2,17 +2,19 @@ name: "FastApi"
 
 services:
   postgresql:
-    image: postgres
+    image: postgres:15
     container_name: postgresql
     restart: always
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: Database
+#    volumes:
+#      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - app
-    env_file:
-      - .env
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U root -d Database" ]
       interval: 30s
@@ -23,14 +25,14 @@ services:
     image: redis:7-alpine
     container_name: redis
     restart: always
+    env_file:
+      - .env
     command: >
       redis-server
       --requirepass "${REDIS_PASSWORD}"
       --appendonly yes
     networks:
       - app
-    env_file:
-      - .env
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
@@ -46,6 +48,8 @@ services:
 #    environment:
 #      RABBITMQ_DEFAULT_USER: ${RABITMQ_USERNAME}
 #      RABBITMQ_DEFAULT_PASS: ${RABITMQ_PASSWORD}
+#    volumes:
+#      - ./rabbitmq_data:/var/lib/rabbitmq
 #    networks:
 #      - app
 #    healthcheck:
@@ -53,6 +57,24 @@ services:
 #      interval: 30s
 #      timeout: 10s
 #      retries: 3
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    ports:
+      - ${MONGODB_PORT}
+    networks:
+      - app
+    healthcheck:
+      test: [ "CMD-SHELL", "mongosh --username $$MONGO_INITDB_ROOT_USERNAME --password $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval 'db.adminCommand(\"ping\")' | grep -q ok" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   alembic:
     build: ./migration
@@ -74,12 +96,12 @@ services:
 #    build: ./workers/rabbitmq
 #    container_name: rabbitmq_worker
 #    restart: always
-#    networks:
-#      - app
 #    volumes:
 #      - ./app/:/app/app
 #      - ./config.py:/app/config.py
 #      - ./.env:/app/.env
+#    networks:
+#      - app
 #    depends_on:
 #      rabbitmq:
 #        condition: service_healthy
@@ -95,10 +117,16 @@ services:
     depends_on:
       postgresql:
         condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
+#      rabbitmq:
+#        condition: service_healthy
       redis:
         condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+#volumes:
+#  postgres_data:
+#  rabbitmq_data:
 
 networks:
   app:
